@@ -16,16 +16,22 @@ class Country {
     toString(){
         return this.name+" have this alpha code 3 : "+this.alpha3Code
     }
+
+    getPopDensity(){
+        return this.population/this.area
+    }
+
+    getBorders(){
+        return this.borders
+    }
 }
+
+// Array that contains all countries of the JSON file
+var all_countries = new Object()
 
 // Function to get informations about each country from the file countries.json
 function fill_db(){
-    var all_countries = new Object()
     for (var element of countries){
         all_countries[element.alpha3Code] = new Country(element.alpha3Code, element.area, element.borders, element.capital, element.region, element.demonym, element.flags, element.name, element.population, element.topLevelDomain)
     }
-    console.log(all_countries["AFG"].toString())
-
 }
-
-fill_db()
