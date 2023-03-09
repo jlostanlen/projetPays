@@ -32,7 +32,7 @@ class Country {
     }
 
     getCurrencies(){
-        return Currency.all_currencies 
+        return this.currencies 
     }
 }
 
@@ -68,3 +68,9 @@ function fill_db(){
 
 
 fill_db()
+
+
+/*********
+ * TESTS
+ *********/
+// console.log(all_countries["AFG"].getCurrencies())
