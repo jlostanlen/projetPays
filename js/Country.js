@@ -17,12 +17,21 @@ class Country {
         this.currencies = currencies
     }
 
+
+
     toString(){
         return this.name+" have this alpha code 3 : "+this.alpha3Code
     }
 
+    getPopDensity(){
+        return this.population/this.area
+    }
+
+    getBorders(){
+        return this.borders
+    }
+
     getCurrencies(){
-        console.log(Currency.all_currencies)
         return Currency.all_currencies 
     }
 }
@@ -51,7 +60,6 @@ function fill_db(){
                 Currency.all_currencies[cu.code] = new Currency(cu.code, cu.name, cu.symbol) // Creation of a new currency and ad it in the array all_currencies
             }
         })
-
         
         // Creation of a country with his currencies code(s) and his other informations  
         all_countries[co.alpha3Code] = new Country(co.alpha3Code, co.area, co.borders, co.capital, co.region, co.demonym, co.flags, co.name, co.population, co.topLevelDomain, all_codes)
