@@ -1,9 +1,9 @@
 
-
-
 // This class contains all informations about a country : name, etc.
 class Country {
-    constructor(alpha3Code, area, borders, capital, region, demonym, flags, name, population, topLevelDomain, currencies){
+    static all_countries = {}
+
+    constructor(alpha3Code, area, borders, capital, region, demonym, flags, name, population, topLevelDomain, currencies, languages){
         this.alpha3Code = alpha3Code
         this.area = area
         this.borders = borders
@@ -15,9 +15,9 @@ class Country {
         this.population = population
         this.topLevelDomain = topLevelDomain
         this.currencies = currencies
+        this.languages = languages
+
     }
-
-
 
     toString(){
         return this.name+" have this alpha code 3 : "+this.alpha3Code
@@ -34,38 +34,44 @@ class Country {
     getCurrencies(){
         return this.currencies 
     }
+
+    getLanguages(){
+        return this.languages
+    }
 }
-
-
-
-
-
 
 // Function to get informations about each country from the file countries.json
-var all_countries = {}
 
 function fill_db(){
-    countries.forEach((co) => { // Iteration by each country
-        
-        // Creation of an array to store each currencies codes of the current country. He will use during the creation of the current country.
-        var all_codes = []
-        
-        // Currency
-        if (!co['currencies']) { // If the country haven't a currency 
-            return
-        }
-        co['currencies'].forEach((cu) => { // Iteration by each currency of a country
-            all_codes.push(cu.code)
-            if(!(cu.code in Currency.all_currencies)) { // If the currency isn't present in the array all_currencies
-                Currency.all_currencies[cu.code] = new Currency(cu.code, cu.name, cu.symbol) // Creation of a new currency and ad it in the array all_currencies
-            }
-        })
-        
-        // Creation of a country with his currencies code(s) and his other informations  
-        all_countries[co.alpha3Code] = new Country(co.alpha3Code, co.area, co.borders, co.capital, co.region, co.demonym, co.flags, co.name, co.population, co.topLevelDomain, all_codes)
-    })
-}
+    // Creation of an array to store each currencies codes of the current country. He will use during the creation of the current country.
 
+    for(var contryId in countries){
+        var current_country_languages = []
+        var current_country_currency = []
+
+        var co = countries[contryId]
+        
+        for(var currencyId in co.currencies){
+
+            var cu = co.currencies[currencyId]
+            current_country_currency.push(cu)
+
+            Currency.all_currencies[cu.code] = new Currency(cu.code, cu.name, cu.symbol) // Creation of a new currency and ad it in the array all_currencies
+
+        }
+
+        for(var languagesId in co.languages){
+            var lang = co.languages[languagesId]
+            current_country_languages.push(lang.iso639_2)
+
+            Language.all_languages[lang.iso639_2] = new Language(lang.iso639_2, lang.name) // Creation of a new currency and ad it in the array all_currencies
+
+        }
+        // Creation of a country with his currencies code(s) and his other informations  
+        Country.all_countries[co.alpha3Code] = new Country(co.alpha3Code, co.area, co.borders, co.capital, co.region, co.demonym, co.flags, co.name, co.population, co.topLevelDomain, current_country_currency, current_country_languages)
+
+    }
+}
 
 fill_db()
 
@@ -73,4 +79,4 @@ fill_db()
 /*********
  * TESTS
  *********/
-// console.log(all_countries["AFG"].getCurrencies())
+console.log(Country.all_countries)
