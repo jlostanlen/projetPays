@@ -92,6 +92,6 @@ function outsideTheContinent(){
 
 }
 //console.log(neighborLess())
-console.log(moreNeighbors())
+//console.log(moreNeighbors())
 //console.log(moreLanguages())
 //console.log(outsideTheContinent())

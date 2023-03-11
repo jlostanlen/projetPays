@@ -45,25 +45,22 @@ class Country {
 function fill_db(){
     // Creation of an array to store each currencies codes of the current country. He will use during the creation of the current country.
 
-    for(var contryId in countries){
+    for(var co of countries){
+
         var current_country_languages = []
         var current_country_currency = []
 
-        var co = countries[contryId]
-        
-        for(var currencyId in co.currencies){
-
-            var cu = co.currencies[currencyId]
-            current_country_currency.push(cu)
-
-            Currency.all_currencies[cu.code] = new Currency(cu.code, cu.name, cu.symbol) // Creation of a new currency and ad it in the array all_currencies
-
+        if (co.currencies != undefined){
+            for(var cu of co.currencies){
+                 current_country_currency.push(cu)
+                 Currency.all_currencies[cu.code] = new Currency(cu.code, cu.name, cu.symbol) // Creation of a new currency and ad it in the array all_currencies
+    
+             }
         }
+       
 
-        for(var languagesId in co.languages){
-            var lang = co.languages[languagesId]
+        for(var lang of co.languages){
             current_country_languages.push(lang.iso639_2)
-
             Language.all_languages[lang.iso639_2] = new Language(lang.iso639_2, lang.name) // Creation of a new currency and ad it in the array all_currencies
 
         }
