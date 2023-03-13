@@ -35,13 +35,11 @@ function neighborLess(){
             noNeighbor[country.alpha3Code] = country
         }
     }
-   
     var string =""
     for (var country of Object.values(noNeighbor)){
         string = string.concat(country.name, ", ")
 
     }
-
     console.log("Les pays sans voisins sont : "+ string)
 
 }
@@ -49,26 +47,20 @@ function neighborLess(){
 function moreLanguages(){
     var maxNumberLanguages = 0;
     var maxCountryLanguages = {};
-
     for(var country of Object.values(Country.all_countries)){
-      
         if (Object.keys(country.languages).length > maxNumberLanguages){
             maxNumberLanguages = Object.keys(country.languages).length
             maxCountryLanguages = {}
             maxCountryLanguages[country.alpha3Code] = country
-        
         }else if (Object.keys(country.languages).length == maxNumberLanguages){
             maxCountryLanguages[country.alpha3Code] = country
         }
-        
     }
-
     var string =""
     for (var country of Object.values(maxCountryLanguages)){
         string = string.concat(country.name, ", ")
 
     }
-
     console.log("Pays parlant le plus de langues : "+ string)
     
 
@@ -80,7 +72,6 @@ function outsideTheContinent(){
 
     for(var country of Object.values(Country.all_countries)){
         var contryMainland = country.region;
-        
         for (var neighborId in country.borders){
             var neighbor = country.borders[neighborId]
             if(Country.all_countries[neighbor].region !== contryMainland){
@@ -104,32 +95,24 @@ function withCommonLanguages(){
     for (var country of Object.values(Country.all_countries)){
         var string =""
         if (country.borders != undefined){
-
             for (var neighbor of country.borders){
-     
                 for (var language of Country.all_countries[neighbor].languages){
-                    
                     if (country.getLanguages().includes(language)){
                         string = string.concat(Country.all_countries[neighbor].name+ " ("+ language + "), ")
                     }
-                    
                 }
-                 
-             }
+            }
         }
        console.log(country.name+" : " + string)
     }
 }
 
 function withoutCommonCurrency(){
-
     var noCommonCurrency = {}
-
     for (var country of Object.values(Country.all_countries)){
         if (country.borders != undefined){
             for (var neighbor of country.borders){
                 var commonCurrency = false;
-
                 if ( Country.all_countries[neighbor].currencies != undefined){
 
                     for (var currency of Country.all_countries[neighbor].currencies){
@@ -140,28 +123,22 @@ function withoutCommonCurrency(){
                         
                     }
                 }
-                
-
                 if (!commonCurrency){
                     noCommonCurrency[country.alpha3Code] = country
-                }
-                 
+                } 
              }
         }
-       
     }
 
     var string = ""
     for (var country of Object.values(noCommonCurrency)){
         string = string.concat(country.name, ", ")
     }
-
     console.log(string)
 }
 
 function moreTopLevelDomains(){
     var multipleDomains = {}
-
     for (var country of Object.values(Country.all_countries)){
         if (country.topLevelDomain != undefined && country.topLevelDomain.length > 1 ){
             multipleDomains[country.alpha3Code] = country
@@ -172,28 +149,20 @@ function moreTopLevelDomains(){
     for (var country of Object.values(multipleDomains)){
         string = string.concat(country.name, ", ")
     }
-
     console.log(string)
-
  
 }
 
 function sortingDecreasingDensity(){
     var sortedCountries = []
-
-    
+  
     for (var country of Object.values(Country.all_countries)){
-
         if(sortedCountries.length == 0){
             sortedCountries.push(Object.values(Country.all_countries)[0])
         }else{
-
             var inserted = false
             var loop = 0
-
             while(loop < sortedCountries.length && !inserted){
-
-
                 if (country.getPopDensity() >= sortedCountries[loop].getPopDensity()){
                     inserted = true
                     sortedCountries.splice(loop, 0, country)
@@ -201,15 +170,12 @@ function sortingDecreasingDensity(){
                 loop ++
             }
         }
-
-        
     }
 
     var string = ""
     for (var country in sortedCountries){
         string = string.concat(sortedCountries[country].name, " ("+ sortedCountries[country].getPopDensity()+"), ")
     }
-
     console.log(string)
     
 }

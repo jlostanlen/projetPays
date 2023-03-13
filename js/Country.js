@@ -52,10 +52,10 @@ function fill_db(){
 
         if (co.currencies != undefined){
             for(var cu of co.currencies){
-                 current_country_currency.push(cu)
+                 current_country_currency.push(cu.code)
                  Currency.all_currencies[cu.code] = new Currency(cu.code, cu.name, cu.symbol) // Creation of a new currency and ad it in the array all_currencies
     
-             }
+            }
         }
        
 
