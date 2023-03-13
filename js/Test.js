@@ -16,11 +16,13 @@ function moreNeighbors(){
 
     console.log("Les pays avec le plus de voisins sont :")
     for (var key of Object.keys(maxCountryNeighbor)){
-        console.log(Country.all_countries[key].name+ " avec pour voisins :")
+        var string = ""
         for (var neighbors of Country.all_countries[key].borders){
-            console.log(Country.all_countries[neighbors].name)
+           string = string.concat(Country.all_countries[neighbors].name, ", ")
 
         }
+        console.log(Country.all_countries[key].name+ " avec pour voisins : "+ string)
+
     }
     
 
@@ -34,10 +36,13 @@ function neighborLess(){
         }
     }
    
+    var string =""
     for (var country of Object.values(noNeighbor)){
-        console.log(country)
+        string = string.concat(country.name, ", ")
 
     }
+
+    console.log("Les pays sans voisins sont : "+ string)
 
 }
 
@@ -58,10 +63,13 @@ function moreLanguages(){
         
     }
 
+    var string =""
     for (var country of Object.values(maxCountryLanguages)){
-        console.log(country)
+        string = string.concat(country.name, ", ")
 
     }
+
+    console.log("Pays parlant le plus de langues : "+ string)
     
 
 }
@@ -82,15 +90,19 @@ function outsideTheContinent(){
         }
     }
 
+    var string =""
     for (var country in out){
-        console.log(out[country])
+        string = string.concat(out[country].name, ", ")
     }
+
+    console.log("These countries have a bordering country outside there continent: " + string)
 
 }
 
 function withCommonLanguages(){
 
     for (var country of Object.values(Country.all_countries)){
+        var string =""
         if (country.borders != undefined){
 
             for (var neighbor of country.borders){
@@ -98,14 +110,14 @@ function withCommonLanguages(){
                 for (var language of Country.all_countries[neighbor].languages){
                     
                     if (country.getLanguages().includes(language)){
-                        console.log(country.name +" et son voisin "+ Country.all_countries[neighbor].name +" partagent la langue "+ language);
+                        string = string.concat(Country.all_countries[neighbor].name+ " ("+ language + "), ")
                     }
                     
                 }
                  
              }
         }
-       
+       console.log(country.name+" : " + string)
     }
 }
 
@@ -139,9 +151,12 @@ function withoutCommonCurrency(){
        
     }
 
+    var string = ""
     for (var country of Object.values(noCommonCurrency)){
-        console.log(country)
+        string = string.concat(country.name, ", ")
     }
+
+    console.log(string)
 }
 
 function moreTopLevelDomains(){
@@ -153,16 +168,56 @@ function moreTopLevelDomains(){
         }
     }
 
+    var string = ""
     for (var country of Object.values(multipleDomains)){
-        console.log(country)
+        string = string.concat(country.name, ", ")
     }
+
+    console.log(string)
+
  
 }
-//console.log(neighborLess())
-//console.log(moreNeighbors())
-//console.log(moreLanguages())
+
+function sortingDecreasingDensity(){
+    var sortedCountries = []
+
+    
+    for (var country of Object.values(Country.all_countries)){
+
+        if(sortedCountries.length == 0){
+            sortedCountries.push(Object.values(Country.all_countries)[0])
+        }else{
+
+            var inserted = false
+            var loop = 0
+
+            while(loop < sortedCountries.length && !inserted){
+
+
+                if (country.getPopDensity() >= sortedCountries[loop].getPopDensity()){
+                    inserted = true
+                    sortedCountries.splice(loop, 0, country)
+                }
+                loop ++
+            }
+        }
+
+        
+    }
+
+    var string = ""
+    for (var country in sortedCountries){
+        string = string.concat(sortedCountries[country].name, " ("+ sortedCountries[country].getPopDensity()+"), ")
+    }
+
+    console.log(string)
+    
+}
 //console.log(outsideTheContinent())
+//console.log(moreNeighbors())
+//console.log(neighborLess())
+//console.log(moreLanguages())
 //console.log(withCommonLanguages())
 //console.log(withoutCommonCurrency())
+//console.log(sortingDecreasingDensity())
 //console.log(moreTopLevelDomains())
-
