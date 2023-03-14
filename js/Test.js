@@ -22,9 +22,9 @@ function moreNeighbors(){
 
         }
         console.log(Country.all_countries[key].name+ " avec pour voisins : "+ string)
-
     }
-    
+
+    return maxCountryNeighbor;
 
 }
 
@@ -41,6 +41,7 @@ function neighborLess(){
 
     }
     console.log("Les pays sans voisins sont : "+ string)
+    return noNeighbor;
 
 }
 
@@ -56,55 +57,72 @@ function moreLanguages(){
             maxCountryLanguages[country.alpha3Code] = country
         }
     }
+
     var string =""
     for (var country of Object.values(maxCountryLanguages)){
         string = string.concat(country.name, ", ")
 
     }
     console.log("Pays parlant le plus de langues : "+ string)
+
+    return maxCountryLanguages
     
 
 }
 
 
 function outsideTheContinent(){
-    var out = []
+    var out = {}
 
     for(var country of Object.values(Country.all_countries)){
         var contryMainland = country.region;
         for (var neighborId in country.borders){
             var neighbor = country.borders[neighborId]
             if(Country.all_countries[neighbor].region !== contryMainland){
-                out.push(country)
+                out[country.alpha3Code] = country
 
             }
         }
     }
 
     var string =""
-    for (var country in out){
-        string = string.concat(out[country].name, ", ")
+    for (var country of Object.values(out)){
+        string = string.concat(country.name, ", ")
     }
 
-    console.log("These countries have a bordering country outside there continent: " + string)
+    console.log("These countries have a neighbor not in the same continent: " + string)
+
+    return out
 
 }
 
 function withCommonLanguages(){
 
+    var out = {}
+
     for (var country of Object.values(Country.all_countries)){
-        var string =""
         if (country.borders != undefined){
-            for (var neighbor of country.borders){
-                for (var language of Country.all_countries[neighbor].languages){
-                    if (country.getLanguages().includes(language)){
-                        string = string.concat(Country.all_countries[neighbor].name+ " ("+ language + "), ")
+            var neighborLanguages = {}
+            for (var CountrieLanguage of country.languages){
+                var sharesLanguages = []
+                for (var neighbor of country.borders){
+                    if (Country.all_countries[neighbor].getLanguages().includes(CountrieLanguage)){
+                        sharesLanguages.push(neighbor)
                     }
+                }
+
+                if(sharesLanguages.length != 0){
+                    neighborLanguages[CountrieLanguage] = sharesLanguages
                 }
             }
         }
-       console.log(country.name+" : " + string)
+        if (Object.keys(neighborLanguages).length != 0){
+            out[country.alpha3Code] = neighborLanguages
+
+        }
     }
+    console.log(out)
+
 }
 
 function withoutCommonCurrency(){
@@ -135,6 +153,8 @@ function withoutCommonCurrency(){
         string = string.concat(country.name, ", ")
     }
     console.log(string)
+
+    return noCommonCurrency
 }
 
 function moreTopLevelDomains(){
@@ -150,6 +170,8 @@ function moreTopLevelDomains(){
         string = string.concat(country.name, ", ")
     }
     console.log(string)
+
+    return multipleDomains
  
 }
 
@@ -178,12 +200,14 @@ function sortingDecreasingDensity(){
     }
     console.log(string)
     
+    return sortedCountries
 }
+
 //console.log(outsideTheContinent())
 //console.log(moreNeighbors())
 //console.log(neighborLess())
 //console.log(moreLanguages())
-//console.log(withCommonLanguages())
+console.log(withCommonLanguages())
 //console.log(withoutCommonCurrency())
 //console.log(sortingDecreasingDensity())
 //console.log(moreTopLevelDomains())

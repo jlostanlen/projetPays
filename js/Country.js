@@ -1,4 +1,3 @@
-
 // This class contains all informations about a country : name, etc.
 class Country {
     static all_countries = {}
@@ -58,7 +57,6 @@ function fill_db(){
             }
         }
        
-
         for(var lang of co.languages){
             current_country_languages.push(lang.iso639_2)
             Language.all_languages[lang.iso639_2] = new Language(lang.iso639_2, lang.name) // Creation of a new currency and ad it in the array all_currencies
@@ -72,8 +70,10 @@ function fill_db(){
 
 fill_db()
 
-
-/*********
- * TESTS
- *********/
+/*
 console.log(Country.all_countries)
+console.log(Object.values(Country.all_countries)[0].getPopDensity())
+console.log(Object.values(Country.all_countries)[0].getBorders())
+console.log(Object.values(Country.all_countries)[0].getCurrencies())
+console.log(Object.values(Country.all_countries)[0].getLanguages())
+*/
