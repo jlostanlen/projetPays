@@ -203,11 +203,34 @@ function sortingDecreasingDensity(){
     return sortedCountries
 }
 
+
+
+
+function verryLongTrip(code_country){
+    toVisit = [Country.all_countries[code_country]]
+    finalList = {}
+    while (toVisit.length != 0) {
+        curentCountry = toVisit.pop()
+        for (var curentBorder of curentCountry.borders){
+            if (curentBorder in finalList){
+                toVisit.push(curentBorder)
+                finalList.unshift()
+            }
+        }
+    }
+
+    return finalList
+}
+
 //console.log(outsideTheContinent())
 //console.log(moreNeighbors())
 //console.log(neighborLess())
 //console.log(moreLanguages())
-console.log(withCommonLanguages())
+// console.log(withCommonLanguages())
 //console.log(withoutCommonCurrency())
 //console.log(sortingDecreasingDensity())
 //console.log(moreTopLevelDomains())
+
+
+fill_db()
+console.log(verryLongTrip("FRA"))
