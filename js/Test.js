@@ -121,7 +121,7 @@ function withCommonLanguages(){
 
         }
     }
-    console.log(out)
+    console.log(Object.keys(out).length)
 
 }
 
@@ -154,6 +154,7 @@ function withoutCommonCurrency(){
     }
     console.log(string)
 
+    console.log(Object.keys(noCommonCurrency).length)
     return noCommonCurrency
 }
 
@@ -203,11 +204,52 @@ function sortingDecreasingDensity(){
     return sortedCountries
 }
 
+function veryLongTrip(country){
+
+    var visited = []
+    return tripping(Country.all_countries[country], [])
+
+    function tripping(country, chemin){
+
+        visited.push(country.name)
+        chemin.push(country.name)
+        if (country.borders != undefined){
+            for (neighbor of country.borders){
+            
+                neighbor = Country.all_countries[neighbor]
+                if(!visited.includes(neighbor.name)){
+                    tripping(neighbor, chemin)
+                }
+            }
+        }
+
+        return chemin
+    }
+
+}
+
+function complement(){
+    var max = 0
+    var maxCountry   
+    for (country of Object.keys(Country.all_countries)){
+        trip = veryLongTrip(country).length
+        if (max < trip){
+            max = trip
+            maxCountry = Country.all_countries[country]
+        }
+        
+    }
+
+    console.log(maxCountry.name + " : "+ max)
+}
 //console.log(outsideTheContinent())
 //console.log(moreNeighbors())
 //console.log(neighborLess())
 //console.log(moreLanguages())
-console.log(withCommonLanguages())
+//console.log(withCommonLanguages())
 //console.log(withoutCommonCurrency())
 //console.log(sortingDecreasingDensity())
 //console.log(moreTopLevelDomains())
+console.log(veryLongTrip("FRA"))
+complement()
+console.log(veryLongTrip("ARG"))
