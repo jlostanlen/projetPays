@@ -2,14 +2,14 @@
 class Country {
     static all_countries = {}
 
-    constructor(alpha3Code, area, borders, capital, region, demonym, flags, name, population, topLevelDomain, currencies, languages){
+    constructor(alpha3Code, area, borders, capital, region, demonym, flag, name, population, topLevelDomain, currencies, languages){
         this.alpha3Code = alpha3Code
         this.area = area
         this.borders = borders
         this.capital = capital
         this.region = region
         this.demonym = demonym
-        this.flags = flags
+        this.flag = flag
         this.name = name
         this.population = population
         this.topLevelDomain = topLevelDomain
@@ -23,7 +23,7 @@ class Country {
     }
 
     getPopDensity(){
-        return this.population/this.area
+        return (this.area == "Unknown")? "Unknown" : this.population/this.area
     }
 
     getBorders(){
@@ -62,8 +62,17 @@ function fill_db(){
             Language.all_languages[lang.iso639_2] = new Language(lang.iso639_2, lang.name) // Creation of a new currency and ad it in the array all_currencies
 
         }
+
+        var flag;
+        if (co.flag != undefined){
+           flag = co.flag;
+        }
+        if (co.flags != undefined){
+            flag = co.flags.svg;
+        }
+        
         // Creation of a country with his currencies code(s) and his other informations  
-        Country.all_countries[co.alpha3Code] = new Country(co.alpha3Code, co.area, co.borders, co.capital, co.region, co.demonym, co.flags, co.name, co.population, co.topLevelDomain, current_country_currency, current_country_languages)
+        Country.all_countries[co.alpha3Code] = new Country(co.alpha3Code, (co.area == undefined )? "Unknown" : co.area, co.borders, co.capital, co.region, co.demonym, flag, co.name, co.population, (co.topLevelDomain == undefined )? "Unknown" : co.topLevelDomain, current_country_currency, current_country_languages)
 
     }
 }
@@ -77,3 +86,5 @@ console.log(Object.values(Country.all_countries)[0].getBorders())
 console.log(Object.values(Country.all_countries)[0].getCurrencies())
 console.log(Object.values(Country.all_countries)[0].getLanguages())
 */
+
+console.log(Country.all_countries)
