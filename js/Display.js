@@ -1,8 +1,11 @@
-var tbody = document.getElementsByClassName("list_countries")[0]
+var countries = document.getElementById("countries")
 
 
 // Iterate in each country
 for (var country of Object.values(Country.all_countries)){
+    var list_countries = document.createElement("article")
+    list_countries.setAttribute("class", "list_countries")
+
     var div1 = document.createElement("div")
     var nameAndCode = document.createElement("div")
 
@@ -17,39 +20,42 @@ for (var country of Object.values(Country.all_countries)){
     nameAndCode.appendChild(countryCode)
 
     div1.appendChild(nameAndCode)
+    
 
     // FLAG
     var countryFlag = document.createElement("div")
     var countryFlagImage = document.createElement("img")
-
     countryFlagImage.src = country.flag
     countryFlagImage.style.height = "100px"
     countryFlag.appendChild(countryFlagImage)
     div1.appendChild(countryFlag)
 
-    var line = document.createElement("ul")
+    list_countries.appendChild(div1)
+
+    var datas = document.createElement("ul")
 
 
     // POPULATION
     var countryPop = document.createElement("li")
     countryPop.textContent = country.population
-    line.appendChild(countryPop)
+    datas.appendChild(countryPop)
     // AREA
     var CountryArea = document.createElement("li")
     CountryArea.textContent = country.area
-    line.appendChild(CountryArea)
+    datas.appendChild(CountryArea)
     // DENSITY
     var countryDensity = document.createElement("li")
     countryDensity.textContent = country.getPopDensity()
-    line.appendChild(countryDensity)
+    datas.appendChild(countryDensity)
     // REGION
     var countryRegion = document.createElement("li")
     countryRegion.textContent = country.region
-    line.appendChild(countryRegion)
+    datas.appendChild(countryRegion)
 
-    div1.appendChild(line)
+    list_countries.appendChild(datas)
     
 
     // Add lines to tab
-    tbody.appendChild(div1) 
+    console.log(countries)
+    countries.appendChild(list_countries) 
 }
