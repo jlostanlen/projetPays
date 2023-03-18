@@ -39,6 +39,30 @@ class Country {
     }
 }
 
+
+class Currency{
+    static all_currencies = {}
+    constructor(code, name, symbol){
+        this.code = code;
+        this.name = name;
+        this.symbol = symbol;
+    }
+    toString(){
+        return this.code + " , " + this.name + " , " + this.symbol;
+    }
+
+}
+
+class Language{
+    static all_languages = {}
+
+    constructor(iso639_2, name){
+        this.iso639_2 = iso639_2
+        this.name = name
+    }
+
+}
+
 // Function to get informations about each country from the file countries.json
 
 function fill_db(){
@@ -76,15 +100,3 @@ function fill_db(){
 
     }
 }
-
-fill_db()
-
-/*
-console.log(Country.all_countries)
-console.log(Object.values(Country.all_countries)[0].getPopDensity())
-console.log(Object.values(Country.all_countries)[0].getBorders())
-console.log(Object.values(Country.all_countries)[0].getCurrencies())
-console.log(Object.values(Country.all_countries)[0].getLanguages())
-*/
-
-console.log(Country.all_countries)

@@ -1,3 +1,4 @@
+fill_db()
 var countries = document.getElementById("countries")
 
 
@@ -56,6 +57,5 @@ for (var country of Object.values(Country.all_countries)){
     
 
     // Add lines to tab
-    console.log(countries)
     countries.appendChild(list_countries) 
 }
