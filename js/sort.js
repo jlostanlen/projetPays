@@ -13,7 +13,8 @@ var btPrecedent = document.getElementById("precedent")
 var btCloseInfos = document.getElementById("closeInfos")
 var moreInfos = document.getElementById("moreInfos")
 var moreInfosPlaceHolder = document.getElementById("moreInfosPlaceHolder")
-
+var sortForm = document.getElementById("sort")
+var sortSelection = document.getElementById("sortSelection")
 var dataToDisplay = []
 
 var regions = {}
@@ -132,7 +133,16 @@ function buildForms(){
         languageSelection.appendChild(option)
     }
 
-   
+    for(var attribute of Object.keys(Object.values(Country.all_countries)[0])){
+        if (attribute != "flag"){
+            var option = document.createElement("option")
+            option.setAttribute("value", attribute)
+            option.textContent = attribute
+            sortSelection.appendChild(option)
+        }
+        
+    }
+
 }
 
 
@@ -198,7 +208,7 @@ Form.addEventListener("submit", (e)=>{
     }
 
 
-    
+    //sort the global data array to make an intersection of its arrays
     for(var i = 0; i < globalArray.length; i++){
         for(var j = 0; j < ( globalArray.length - i -1 ); j++){
           if(globalArray[j].length < globalArray[j+1].length){
@@ -210,7 +220,7 @@ Form.addEventListener("submit", (e)=>{
     }
 
     
-    
+    //make an interection of the arrays contained in the global data array
     dataToDisplay = []
     for(var element of globalArray[0]){
         var include = true
@@ -297,3 +307,30 @@ function displayData(){
     }
 }
 
+sortForm.addEventListener("submit", (e)=>{
+    e.preventDefault();
+
+    if (sortSelection.value != ""){
+        var sortOn = sortSelection.value
+    }
+
+    for(var i = 0; i < dataToDisplay.length; i++){
+        for(var j = 0; j < ( dataToDisplay.length - i -1 ); j++){
+            if(dataToDisplay[j][sortOn] > dataToDisplay[j+1][sortOn]){
+                var temp = dataToDisplay[j]
+                dataToDisplay[j] = dataToDisplay[j + 1]
+                dataToDisplay[j+1] = temp
+            }else if (dataToDisplay[j][sortOn] == dataToDisplay[j+1][sortOn]){
+                console.log("egal")
+                if (dataToDisplay[j][name] > dataToDisplay[j+1][name]){
+                    var temp = dataToDisplay[j]
+                    dataToDisplay[j] = dataToDisplay[j + 1]
+                    dataToDisplay[j+1] = temp
+                }
+            }
+        }
+    }
+
+    displayData()
+    
+})
