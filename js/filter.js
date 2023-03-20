@@ -31,7 +31,6 @@ function displayMoreInfos(id){
     console.log("more Infos affiché")
     moreInfos.innerHTML=""
     var table = document.createElement("table")
-    
 
     for (var attribute of Object.keys(Country.all_countries[id])){
 
