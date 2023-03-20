@@ -82,6 +82,7 @@ function outsideTheContinent(){
                 out[country.alpha3Code] = country
 
             }
+            
         }
     }
 
@@ -161,6 +162,7 @@ function withoutCommonCurrency(){
 function moreTopLevelDomains(){
     var multipleDomains = {}
     for (var country of Object.values(Country.all_countries)){
+        console.log(country.topLevelDomain)
         if (country.topLevelDomain != undefined && country.topLevelDomain.length > 1 ){
             multipleDomains[country.alpha3Code] = country
         }
@@ -250,6 +252,6 @@ function complement(){
 //console.log(withoutCommonCurrency())
 //console.log(sortingDecreasingDensity())
 //console.log(moreTopLevelDomains())
-console.log(veryLongTrip("FRA"))
-complement()
-console.log(veryLongTrip("ARG"))
+//console.log(veryLongTrip("FRA"))
+//complement()
+//console.log(veryLongTrip("ARG"))
