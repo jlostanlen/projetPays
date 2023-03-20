@@ -89,7 +89,6 @@ function biggerFlag(source){
     var flag = document.createElement("img");
     flag.src = source.getAttribute("flag");
     flag.style.height="500px"
-    
     moreInfos.appendChild(flag)
     document.getElementsByTagName("main")[0].style.filter = "blur(5px)"
     moreInfosPlaceHolder.style.display="block"
@@ -98,7 +97,6 @@ function biggerFlag(source){
 
 function buildForms(){
     
-
     for (let country of Object.values(Country.all_countries)){
         
         if (!Object.keys(regions).includes(country.region)){
@@ -133,16 +131,16 @@ function buildForms(){
         languageSelection.appendChild(option)
     }
 
-    for(var attribute of Object.keys(Object.values(Country.all_countries)[0])){
-        if (attribute != "flag"){
-            var option = document.createElement("option")
-            option.setAttribute("value", attribute)
-            option.textContent = attribute
-            sortSelection.appendChild(option)
-        }
-        
-    }
+    var sortValues = ["demonym", "population", "density", "area", "region"];
+    var sortOptions = ["Habitants", "Population", "Densité de population", "Superficie", "Continent"]
 
+    for (var index in sortValues){
+        var option = document.createElement("option")
+        option.setAttribute("value", sortValues[index])
+        option.textContent = sortOptions[index]
+        sortSelection.appendChild(option)
+    }
+    
 }
 
 
@@ -157,7 +155,6 @@ Form.addEventListener("submit", (e)=>{
     (countryNameInput.value == "")?countryNameInputPresent=false : countryNameInputPresent=true;
 
     if(regionSelection.selectedOptions.length != 0 && regionSelection.selectedOptions[0].value != ""){
-
         for(var option of regionSelection.selectedOptions){
             for(var element of Object.values(regions[option.value])){
                 regionToDisplay.push(element)
@@ -168,20 +165,15 @@ Form.addEventListener("submit", (e)=>{
             for (var element of region){
                 regionToDisplay.push(element)
             }
-            
         }
     }
 
     globalArray.push(regionToDisplay)
     
-    
-    
-
     if(languageSelection.selectedOptions.length != 0 && languageSelection.selectedOptions[0].value != ""){
         for(var option of languageSelection.selectedOptions){
             for(var element of Object.values(languages[option.value])){
                 languageToDisplay.push(element)
-
             }
         }
     }else{
@@ -196,7 +188,6 @@ Form.addEventListener("submit", (e)=>{
     
     globalArray.push(languageToDisplay)
 
-
     if(countryNameInputPresent){
         for (var country of Object.values(Country.all_countries)){
             if (country.name.includes(countryNameInput.value)){
@@ -204,9 +195,7 @@ Form.addEventListener("submit", (e)=>{
             }
         }
         globalArray.push(countryToDisplay)
-
     }
-
 
     //sort the global data array to make an intersection of its arrays
     for(var i = 0; i < globalArray.length; i++){
@@ -219,7 +208,6 @@ Form.addEventListener("submit", (e)=>{
         }
     }
 
-    
     //make an interection of the arrays contained in the global data array
     dataToDisplay = []
     for(var element of globalArray[0]){
@@ -232,10 +220,8 @@ Form.addEventListener("submit", (e)=>{
         (include)?dataToDisplay.push(element):"";
     }
 
-
     displayData()
    
-    
 })
 
 function displayData(){
@@ -247,7 +233,9 @@ function displayData(){
         
     
         var div1 = document.createElement("div")
+        div1.setAttribute("class", "countryHead")
         var nameAndCode = document.createElement("div")
+        nameAndCode.setAttribute("class", "nameAndCode")
     
         // NAME
         var countryName = document.createElement("p")
@@ -264,6 +252,7 @@ function displayData(){
     
         // FLAG
         var countryFlag = document.createElement("div")
+        countryFlag.setAttribute("class", "countryFlag")
         var countryFlagImage = document.createElement("img")
         countryFlagImage.src =dataToDisplay[loop].flag
         countryFlagImage.style.height = "100px"
@@ -275,7 +264,6 @@ function displayData(){
         list_countries.appendChild(div1)
     
         var datas = document.createElement("ul")
-    
     
         // POPULATION
         var countryPop = document.createElement("li")
@@ -298,7 +286,6 @@ function displayData(){
         datas.setAttribute("onclick", "displayMoreInfos(this.id)")
         
         list_countries.appendChild(datas)
-        
     
         // Add lines to tab
         countries.appendChild(list_countries) 
@@ -310,26 +297,32 @@ function displayData(){
 sortForm.addEventListener("submit", (e)=>{
     e.preventDefault();
 
-    if (sortSelection.value != ""){
-        var sortOn = sortSelection.value
+    var sortOn 
+    if(sortSelection.value != ""){
+        sortOn =  sortSelection.value;
     }
+
+    console.log(sortOn)
+    console.log("triage...")
 
     for(var i = 0; i < dataToDisplay.length; i++){
         for(var j = 0; j < ( dataToDisplay.length - i -1 ); j++){
-            if(dataToDisplay[j][sortOn] > dataToDisplay[j+1][sortOn]){
+            if((sortOn == "density")? dataToDisplay[j].getPopDensity() > dataToDisplay[j+1].getPopDensity() : dataToDisplay[j][sortOn] > dataToDisplay[j+1][sortOn] ){
                 var temp = dataToDisplay[j]
                 dataToDisplay[j] = dataToDisplay[j + 1]
                 dataToDisplay[j+1] = temp
-            }else if (dataToDisplay[j][sortOn] == dataToDisplay[j+1][sortOn]){
-                console.log("egal")
-                if (dataToDisplay[j][name] > dataToDisplay[j+1][name]){
+            }else if ((sortOn == "density")? dataToDisplay[j].getPopDensity() == dataToDisplay[j+1].getPopDensity() : dataToDisplay[j][sortOn] == dataToDisplay[j+1][sortOn] ){
+                if (dataToDisplay[j].name > dataToDisplay[j+1].name){
                     var temp = dataToDisplay[j]
                     dataToDisplay[j] = dataToDisplay[j + 1]
                     dataToDisplay[j+1] = temp
                 }
             }
         }
+        
     }
+    
+    console.log("trié !")
 
     displayData()
     
