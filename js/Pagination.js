@@ -5,12 +5,11 @@ var countriesDOM = document.getElementById("countries")
 var btSuivant = document.getElementById("suivant")
 var btPrecedent = document.getElementById("precedent")
 var dataToDisplay = []
+var addButtons = false
 
 function load(){
-    
     dataToDisplay = Object.values(Country.all_countries)
     btPrecedent.disabled = "true"
-
     displayData()
 } 
 
@@ -36,7 +35,7 @@ function displayData(){
         // CODE
         var countryCode = document.createElement("p")
         countryCode.textContent = dataToDisplay[loop].alpha3Code
-        countryCode.setAttribute("classs", "countryCode")
+        countryCode.setAttribute("class", "countryCode")
         nameAndCode.appendChild(countryCode)
     
         div1.appendChild(nameAndCode)
@@ -49,8 +48,8 @@ function displayData(){
         countryFlagImage.src =dataToDisplay[loop].flag
         countryFlagImage.style.height = "100px"
         countryFlag.appendChild(countryFlagImage)
-        countryFlag.setAttribute("flag", dataToDisplay[loop].flag)
-        countryFlag.setAttribute("onclick", "biggerFlag(this)")
+        countryFlag.setAttribute("flag", dataToDisplay[loop].flag);
+        (addButtons)?countryFlag.setAttribute("onclick", "biggerFlag(this)"):"";
         div1.appendChild(countryFlag)
     
         list_countries.appendChild(div1)
@@ -73,18 +72,22 @@ function displayData(){
         var countryRegion = document.createElement("li")
         countryRegion.textContent = dataToDisplay[loop].region
         datas.appendChild(countryRegion)
-      
-        datas.setAttribute("id", dataToDisplay[loop].alpha3Code)
-        datas.setAttribute("onclick", "displayMoreInfos(this.id)")
 
-        var moreInfosButton = document.createElement("button");
-        moreInfosButton.setAttribute("id", dataToDisplay[loop].alpha3Code)
-        moreInfosButton.setAttribute("onclick", "displayMoreInfos(this.id)")
-        
-        
         list_countries.appendChild(datas)
+
+        if(addButtons){
+            datas.setAttribute("id", dataToDisplay[loop].alpha3Code)
+            datas.setAttribute("onclick", "displayMoreInfos(this.id)")
     
-        // Add lines to tab
+            var moreInfosButton = document.createElement("button");
+            moreInfosButton.setAttribute("id", dataToDisplay[loop].alpha3Code);
+            moreInfosButton.setAttribute("class", "moreInfosButton");
+            moreInfosButton.setAttribute("onclick", "displayMoreInfos(this.id)");
+            moreInfosButton.textContent = "More infos";
+            list_countries.appendChild(moreInfosButton)
+
+        }
+        
         countriesDOM.appendChild(list_countries) 
         loop++;
         
@@ -96,7 +99,7 @@ btSuivant.addEventListener("click", function(){
     countriesDOM.innerHTML=""
     btPrecedent.disabled = false
     page++;
-    (page*TO_DISPLAY >= Object.values(Country.all_countries).length)? btSuivant.disabled = true :  btSuivant.disabled = false;
+    (page*TO_DISPLAY >= dataToDisplay.length)? btSuivant.disabled = true :  btSuivant.disabled = false;
     displayData();
 })
 
@@ -105,6 +108,6 @@ btPrecedent.addEventListener("click", function(){
     countriesDOM.innerHTML=""
     page--;
     (page == 1)? btPrecedent.disabled = true :  btPrecedent.disabled = false;
-    (page*TO_DISPLAY >= Object.values(Country.all_countries).length)? btSuivant.disabled = true :  btSuivant.disabled = false;
+    (page*TO_DISPLAY >= dataToDisplay.length)? btSuivant.disabled = true :  btSuivant.disabled = false;
     displayData()
 })

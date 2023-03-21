@@ -4,6 +4,12 @@ var btCloseInfos = document.getElementById("closeInfos")
 var moreInfos = document.getElementById("moreInfos")
 var moreInfosPlaceHolder = document.getElementById("moreInfosPlaceHolder")
 
+function load(){
+    btPrecedent.disabled = "true"
+    dataToDisplay = Object.values(Country.all_countries)
+    addButtons = true
+    displayData()    
+}
 
 function displayMoreInfos(id){
     console.log("more Infos affiché")
@@ -35,23 +41,6 @@ function displayMoreInfos(id){
 }
 
 
-btSuivant.addEventListener("click", function(){
-    console.log("suivant cliqué")
-    countriesDOM.innerHTML=""
-    btPrecedent.disabled = false
-    page++;
-    (page*TO_DISPLAY >= Object.values(Country.all_countries).length)? btSuivant.disabled = true :  btSuivant.disabled = false;
-    displayData();
-})
-
-btPrecedent.addEventListener("click",()=>{
-    console.log("précédent cliqué")
-    countriesDOM.innerHTML=""
-    page--;
-    (page == 1)? btPrecedent.disabled = true :  btPrecedent.disabled = false;
-    (page*TO_DISPLAY >= Object.values(Country.all_countries).length)? btSuivant.disabled = true :  btSuivant.disabled = false;
-    displayData()
-})
 
 
 btCloseInfos.addEventListener("click", ()=>{
