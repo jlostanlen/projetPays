@@ -1,23 +1,28 @@
 fill_db()
-var countries = document.getElementById("countries")
+var countriesDOM = document.getElementById("countries")
 
 
-// Iterate in each country
+// Iterate on every country
 for (var country of Object.values(Country.all_countries)){
-    var list_countries = document.createElement("article")
+   var list_countries = document.createElement("article")
     list_countries.setAttribute("class", "list_countries")
+    
 
     var div1 = document.createElement("div")
+    div1.setAttribute("class", "countryHead")
     var nameAndCode = document.createElement("div")
+    nameAndCode.setAttribute("class", "nameAndCode")
 
     // NAME
     var countryName = document.createElement("p")
     countryName.textContent = country.name
+    countryName.setAttribute("class", "countryName")
     nameAndCode.appendChild(countryName)
 
     // CODE
     var countryCode = document.createElement("p")
     countryCode.textContent = country.alpha3Code
+    countryCode.setAttribute("class", "countryCode")
     nameAndCode.appendChild(countryCode)
 
     div1.appendChild(nameAndCode)
@@ -25,37 +30,64 @@ for (var country of Object.values(Country.all_countries)){
 
     // FLAG
     var countryFlag = document.createElement("div")
+    countryFlag.setAttribute("class", "countryFlag")
     var countryFlagImage = document.createElement("img")
-    countryFlagImage.src = country.flag
+    countryFlagImage.src =country.flag
     countryFlagImage.style.height = "100px"
     countryFlag.appendChild(countryFlagImage)
+    countryFlag.setAttribute("flag", country.flag);
     div1.appendChild(countryFlag)
 
     list_countries.appendChild(div1)
 
-    var datas = document.createElement("ul")
-
+    var table = document.createElement("table")
+    var tbody = document.createElement("tbody")
 
     // POPULATION
-    var countryPop = document.createElement("li")
+    var countryPopRow = document.createElement("tr")
+    var countryPopHead = document.createElement("th")
+    countryPopHead.textContent = "Population"
+    countryPopRow.append(countryPopHead)
+
+    var countryPop = document.createElement("td")
     countryPop.textContent = country.population
-    datas.appendChild(countryPop)
+    countryPopRow.appendChild(countryPop)
+    tbody.appendChild(countryPopRow)
+
     // AREA
-    var CountryArea = document.createElement("li")
-    CountryArea.textContent = country.area
-    datas.appendChild(CountryArea)
+    var countryAreaRow = document.createElement("tr")
+    var countryAreaHead = document.createElement("th")
+    countryAreaHead.textContent = "Area"
+    countryAreaRow.append(countryAreaHead)
+
+    var area = document.createElement("td")
+    area.textContent = country.area
+    countryAreaRow.appendChild(area)
+    tbody.appendChild(countryAreaRow)
     // DENSITY
-    var countryDensity = document.createElement("li")
-    countryDensity.textContent = country.getPopDensity()
-    datas.appendChild(countryDensity)
+    var countryDensityRow = document.createElement("tr")
+    var countryDensityHead = document.createElement("th")
+    countryDensityHead.textContent = "Density"
+    countryDensityRow.append(countryDensityHead)
+
+    var density = document.createElement("td")
+    density.textContent = country.getPopDensity()
+    countryDensityRow.appendChild(density)
+    tbody.appendChild(countryDensityRow)
+
+
     // REGION
-    var countryRegion = document.createElement("li")
-    countryRegion.textContent = country.region
-    datas.appendChild(countryRegion)
+    var countryRegionRow = document.createElement("tr")
+    var countryRegionHead = document.createElement("th")
+    countryRegionHead.textContent = "Region"
+    countryRegionRow.append(countryRegionHead)
 
-    list_countries.appendChild(datas)
-    
+    var region = document.createElement("td")
+    region.textContent = country.region
+    countryRegionRow.appendChild(region)
+    tbody.appendChild(countryRegionRow)
 
-    // Add lines to tab
-    countries.appendChild(list_countries) 
+    table.appendChild(tbody)
+    list_countries.appendChild(table)  
+    countriesDOM.appendChild(list_countries) 
 }

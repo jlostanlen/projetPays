@@ -3,6 +3,7 @@
     --gold : #D9AF62;
     --white : #F5F5F5;
     --black : black;
+    --grey : #7F7E7A;
 }
 
 ::selection{
@@ -10,12 +11,75 @@
     color: var(--black);
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+button{
+    border: 0px;
+    background: var(--gold);
+    color: var(--black);
+    font-family: "elza-text", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    height: 26px;
+    width: 100px;
+    font-size: 16px;
+    margin: 10px;
+}
+
+button:hover{
+    cursor: pointer;
+    transform: scale(115%);
+    transition: 0.3s;
+}
+
+
+button:disabled{
+    background: var(--grey);
+}
+
+.pagination_buttons{
+    display: flex;
+    justify-content: center;
+    margin: 3em 0 3em 0;
+}
+
+
+section{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+article{
+    display: flex;
+    width: 25%;
+    background: var(--white);
+    margin: 20px;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+
+article:hover{
+    box-shadow: 0 0 25px rgb(49, 49, 49);
+}
+
+p, li{
+    font-family: "elza-text", sans-serif;
+    /* font-weight: 400; */
+    font-style: normal;
+    list-style-type: none;
+}
+
 /* Fonts */
 /* Titles :  */
 /* background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../img/map.jpg");
 background-size: 100%;
 background-attachment: fixed; */
-
 /* Texts */
 /* font-family: "elza-text", sans-serif;
 font-weight: 400;
@@ -27,7 +91,6 @@ body{
     background-size: 100%;
     background-attachment: fixed;
 }
-
 
 
 nav{
@@ -65,6 +128,16 @@ nav{
     color: #F5F5F5;
     text-decoration: none;
 }
+
+.bloc_accueil{
+    display: flex;
+    /* margin-bottom: 700px; */
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: -100px;
+}
 h1{
     font-family: "poppins", sans-serif;
     font-weight: 300;
@@ -74,22 +147,18 @@ h1{
 .title{
     font-size: 70px;
     color: #F5F5F5;
-    position: absolute;
-    top: 40%;
+}
+
+.scroll_bottom{
+    border: solid var(--white) 3px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.scroll_bottom{
-    position: absolute;
-    border: solid var(--white) 1px;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    top: 80%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
 
 .scroll_bottom img{
     position: relative;
@@ -99,16 +168,235 @@ h1{
     transform: translate(-50%, -50%);
 }
 
-.list_countries{
-    display: grid;
-    gap: 30px;
+/****************************
+* RESEARCH
+*****************************/
+.research{
+    display: flex;
+    align-items: top;
+    justify-content: center;
+    width: 100%;
 }
 
-li, p{
-    color: #F5F5F5;
+.research label{
+    font-size: 20px;
+    color: var(--white);
+    font-family: "elza-text", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin-bottom: 7px;
 }
 
+.research input{
+    font-family: "elza-text", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    background: var(--white);
+    border: 0px;
+    font-size: 16px;
+}
+
+.research button{
+    margin-top: 20px;
+    width: 100px;
+    font-family: "elza-text", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    background: var(--gold);
+    border: 0px;
+    font-size: 16px;
+}
+
+.research button:hover{
+    cursor: pointer;
+}
+.research_elements1{
+    font-family: "elza-text", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+#RegionSelection{
+    background: var(--white);
+    border: 0px;
+    font-family: "elza-text", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+}
+
+.research_elements2{
+    font-family: "elza-text", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+#LanguageSelection{
+    font-size: 16px;
+    background: var(--white);
+    border: 0px;
+    font-family: "elza-text", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.research_elements3{
+    font-family: "elza-text", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+/****************************
+* SORT
+*****************************/
+#sort{
+    position: sticky;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 7%;
+    margin-left: 20px;
+}
+#sort label{
+    font-size: 20px;
+    color: var(--white);
+    font-family: "elza-text", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin-bottom: 7px;
+}
+
+#sort select{
+    width: 100px;
+    border: 0px;
+}
+
+#sort button{
+    margin-top: 5px;
+    width: 100px;
+    font-family: "elza-text", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    background: var(--gold);
+    border: 0px;
+    font-size: 16px;
+}
+
+#sort button:hover{
+    cursor: pointer;
+}
+
+
+/****************************
+* MORE INFOS
+*****************************/
 #moreInfosPlaceHolder{
     display: none;
-    color:white;
+    flex-direction: column;
+    position: fixed;
+    color: var(--black);
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+
+
+#moreInfos table{
+    background: var(--white);
+    font-family: "elza-text", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--black);
+    padding: 10px;
+}
+
+
+
+/****************************
+* LIST OF COUNTRIES
+*****************************/
+.list_countries{
+    flex-direction: column;
+    padding-top: 20px;
+}
+
+
+.countryHead{
+    display: flex;
+    flex-direction: row;
+    color: var(--black); 
+    font-family: "elza-text", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    align-items: center;
+}
+.countryHead p{
+    text-align: center;
+}
+
+.countryName {
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.list_countries ul{
+    width: 100%;
+}
+.list_countries li{
+    font-weight:bold;
+}
+
+
+
+
+
+
+
+
+
+/****************************
+* FOOTER
+*****************************/
+footer{
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    color: var(--white);
+    padding-bottom: 30px;
+}
+
+footer hr{
+    width: 70%;
+    margin-top: 140px;
+}
+
+footer h1{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../img/map.jpg");
+    background-size: 100%;
+    background-attachment: fixed;
+    font-size: 50px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+footer p{
+    width: 30%;
+    text-align: center;
+    font-family: "elza-text", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.countryFlag{
+    margin-left: 10px;
+    cursor: pointer;
 }

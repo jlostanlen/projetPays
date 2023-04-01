@@ -15,7 +15,6 @@ class Country {
         this.topLevelDomain = topLevelDomain
         this.currencies = currencies
         this.languages = languages
-
     }
 
     toString(){
@@ -63,11 +62,11 @@ class Language{
 
 }
 
-// Function to get informations about each country from the file countries.json
+// Function to generate objects based on the countries.json file
 
 function fill_db(){
-    // Creation of an array to store each currencies codes of the current country. He will use during the creation of the current country.
 
+    
     for(var co of countries){
 
         var current_country_languages = []
@@ -76,14 +75,14 @@ function fill_db(){
         if (co.currencies != undefined){
             for(var cu of co.currencies){
                  current_country_currency.push(cu.code)
-                 Currency.all_currencies[cu.code] = new Currency(cu.code, cu.name, cu.symbol) // Creation of a new currency and ad it in the array all_currencies
+                 Currency.all_currencies[cu.code] = new Currency(cu.code, cu.name, cu.symbol) // Generation of a new currency object and ad it in the array all_currencies
     
             }
         }
        
         for(var lang of co.languages){
             current_country_languages.push(lang.iso639_2)
-            Language.all_languages[lang.iso639_2] = new Language(lang.iso639_2, lang.name) // Creation of a new currency and ad it in the array all_currencies
+            Language.all_languages[lang.iso639_2] = new Language(lang.iso639_2, lang.name) // Generation of a new Currency object and ad it in the array all_currencies
 
         }
 
@@ -95,7 +94,7 @@ function fill_db(){
             flag = co.flags.svg;
         }
         
-        // Creation of a country with his currencies code(s) and his other informations  
+        // Generation of a new country object with its currencies code(s) and languages and ad it in the array all_countries
         Country.all_countries[co.alpha3Code] = new Country(co.alpha3Code, (co.area == undefined )? "Unknown" : co.area, co.borders, co.capital, co.region, co.demonym, flag, co.name, co.population, (co.topLevelDomain == undefined )? "Unknown" : co.topLevelDomain, current_country_currency, current_country_languages)
 
     }

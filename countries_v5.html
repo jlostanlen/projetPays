@@ -13,62 +13,90 @@
     <header>
         <nav>
             <ul class="ul_navbar">
-                <li><img class="logo" src="img/whiteLogo.png" alt=""></li>
-                <li><a class="text_navbar" href="">Home</a></li>
-                <li><a  class="text_navbar" href="">Countries</a></li>
-                <li><a  class="text_navbar" href="">About</a></li>
+                <li><a href="countries_v5.html"><img class="logo" src="img/whiteLogo.png" alt=""></a> </li>
+                <li><a class="text_navbar" href="countries_v5.html">Home</a></li>
+                <li><a  class="text_navbar" href="#Form">Countries</a></li>
+                <li><a  class="text_navbar" href="#footer">About</a></li>
             </ul>
         </nav>
     </header>
+    
+    <main> 
+        <div class="cursor"></div>
 
-    <div class="bloc_accueil">
-        <h1 class="title">Discover the world !</h1>
-        <div class="scroll_bottom"><a href="#countries"> <img src="img/bottomArrow.png" alt=""></a></div>
-    </div>
-    <main>
-        <button id="precedent">précédent</button>
-        <button id="suivant">suivant</button>
+        <div class="bloc_accueil">
+            <h1 class="title">Discover the world !</h1>
+            <div class="scroll_bottom"><a href="#Form"> <img src="img/bottomArrow.png" alt=""></a></div>
+        </div>
         
-       <form id="Form">
-        <select name="" id="RegionSelection" multiple>
-            <option value=""></option>
-        </select>
-        <select name="" id="LanguageSelection" multiple>
-            <option value=""></option>
-        </select>
-        <label>Search country name: </label><input type="text" id="countryNameInput">
-        <button type="submit" value="submit">submit</button>
-       </form>
+        <form id="Form">
+            <div class="research">
+                <div class="research_elements1">
+                    <label>Region: </label>
+                    <select name="" id="RegionSelection" multiple>
+                        <option value=""></option>
+                    </select>
+                    <button id="resetRegion">reset</button>
+                </div>
+                <div class="research_elements2">
+                    <label>Language: </label>
+                    <select name="" id="LanguageSelection" multiple>
+                        <option value=""></option>
+                    </select>
+                    <button id="resetLanguage">reset</button>
+                </div>
+                <div class="research_elements3">
+                    <label>Country name: </label>
+                    <input type="text" id="countryNameInput">
+                    <button id="resetCountryName">reset</button>
+                    <button type="submit" value="submit">Submit</button>
+                </div>
+            </div>
+            
+        </form>
 
-       <form id="sort">
-        <select name="" id="sortSelection">
-            <option value=""></option>
-        </select>
-        <button type="submit">sort</button>
-       </form>
+  
+        <form id="sort">
+            <label>Sort by:</label>
+            <select name="" id="sortSelection">
+                <option value=""></option>
+            </select>
+            <button type="submit">Sort</button>
+        </form>
+
+        <div class="pagination_buttons">
+            <button id="precedent">Previous</button>
+            <button id="suivant">Next</button>
+        </div>
         
         <section id="countries">
+            
         </section>
 
         
+        
     </main>
 
-    <article id="moreInfosPlaceHolder">
+    <div id="moreInfosPlaceHolder">
         <button id="closeInfos">X</button>
-        <article id="moreInfos">
-
-        </article>
+        <div id="moreInfos">
             
-    </article>
+        </div>
+    </div>
 
-
-            
+    <footer id="footer">
+        <hr>
+        <h1>About this project</h1>
+        <p>This fictive project was realize by two IUT of Lannion’s students, Jérémie Lostanlen and Louan Robert.</p>
+    </footer>
 
     <script src="fichiers/countries.js"></script>
     <script src="js/Country.js"></script>
-    <script src="js/sort.js"></script>
-
+    <script src="js/Pagination.js"></script>
+    <script src="js/MoreInfos.js"></script>
+    <script src="js/Filter.js"></script>
+    <script src="js/Sort.js"></script>   
     
-
+    
 </body>
 </html>

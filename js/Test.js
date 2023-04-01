@@ -41,6 +41,7 @@ function neighborLess(){
 
     }
     console.log("Les pays sans voisins sont : "+ string)
+    console.log(Object.values(noNeighbor).length)
     return noNeighbor;
 
 }
@@ -122,7 +123,7 @@ function withCommonLanguages(){
 
         }
     }
-    console.log(Object.keys(out).length)
+    console.log(out)
 
 }
 
@@ -179,31 +180,41 @@ function moreTopLevelDomains(){
 }
 
 function sortingDecreasingDensity(){
-    var sortedCountries = []
-  
-    for (var country of Object.values(Country.all_countries)){
-        if(sortedCountries.length == 0){
-            sortedCountries.push(Object.values(Country.all_countries)[0])
-        }else{
-            var inserted = false
-            var loop = 0
-            while(loop < sortedCountries.length && !inserted){
-                if (country.getPopDensity() >= sortedCountries[loop].getPopDensity()){
-                    inserted = true
-                    sortedCountries.splice(loop, 0, country)
-                }
-                loop ++
-            }
-        }
+
+    var unknownDensity = []
+    var knownDensityCountries = []
+
+    for (country of Object.values(Country.all_countries)){
+        (country.getPopDensity() == "Unknown")?unknownDensity.push(country):knownDensityCountries.push(country);
     }
 
+    var dataToSort = knownDensityCountries
+
+    for(var i = 0; i < dataToSort.length; i++){
+
+        for(var j = 0; j < ( dataToSort.length - i -1 ); j++){
+            if(dataToSort[j].getPopDensity() <= dataToSort[j+1].getPopDensity() ){
+                var temp = dataToSort[j]
+                dataToSort[j] = dataToSort[j + 1]
+                dataToSort[j+1] = temp
+            }
+        }
+        
+    }
+
+    dataToSort = dataToSort.concat(unknownDensity)
+
     var string = ""
-    for (var country in sortedCountries){
-        string = string.concat(sortedCountries[country].name, " ("+ sortedCountries[country].getPopDensity()+"), ")
+    for (var country in dataToSort){
+        string = string.concat(dataToSort[country].name, " ("+ dataToSort[country].getPopDensity()+"), ")
     }
     console.log(string)
+
+    for (country of dataToSort){
+        console.log(country.getPopDensity())
+    }
     
-    return sortedCountries
+    return dataToSort
 }
 
 function veryLongTrip(country){

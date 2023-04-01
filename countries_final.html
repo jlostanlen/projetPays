@@ -9,22 +9,18 @@
     <link rel="stylesheet" href="https://use.typekit.net/cxo0knm.css">
     <title>Discover the world</title>
 </head>
-<body onload="load()">
+<body>
     <header>
         <nav>
             <ul class="ul_navbar">
-                <li><img class="logo" src="img/whiteLogo.png" alt=""></li>
-                <li><a class="text_navbar" href="">Home</a></li>
-                <li><a  class="text_navbar" href="">Countries</a></li>
-                <li><a  class="text_navbar" href="">About</a></li>
+                <li><a href="countries_v5.html"><img class="logo" src="img/whiteLogo.png" alt=""></a> </li>
+                <li><a class="text_navbar" href="countries_v5.html">Home</a></li>
+                <li><a  class="text_navbar" href="#Form">Countries</a></li>
+                <li><a  class="text_navbar" href="#footer">About</a></li>
             </ul>
         </nav>
     </header>
-
-    <div class="bloc_accueil">
-        <h1 class="title">Discover the world !</h1>
-        <div class="scroll_bottom"><a href="#countries"> <img src="img/bottomArrow.png" alt=""></a></div>
-    </div>
+    
     <main> 
         <div class="cursor"></div>
 
@@ -58,40 +54,50 @@
             </div>
             
         </form>
+        
+        
+        <form id="sort">
+            <label>Sort by:</label>
+            <select name="" id="sortSelection">
+                <option value=""></option>
+            </select>
+            <button type="submit">Sort</button>
+        </form>
 
         <div class="pagination_buttons">
             <button id="precedent">Previous</button>
             <button id="suivant">Next</button>
         </div>
+
         
         <section id="countries">
             
         </section>
-
         
         
     </main>
 
-    <article id="moreInfosPlaceHolder">
+    <div id="moreInfosPlaceHolder">
         <button id="closeInfos">X</button>
-        <article id="moreInfos">
-
-        </article>
+        <div id="moreInfos">
             
-    </article>
+        </div>
+    </div>
 
+    <footer id="footer">
+        <hr>
+        <h1>About this project</h1>
+        <p>This fictive project was realize by two IUT of Lannion’s students, Jérémie Lostanlen and Louan Robert.</p>
+    </footer>
 
-            
-
-    <script src="fichiers/countries.js"></script>
-    <script src="js/Country.js"></script>
-    <script src="js/Pagination.js"></script>
-    <script src="js/MoreInfos.js"></script>
-    <script src="js/Filter.js"></script>
-
-
-
+   
+    <script type="text/javascript" src="js/Country.js"></script>
+    <script type="text/javascript" src="js/Pagination.js"></script>
+    <script type="text/javascript" src="js/MoreInfos.js"></script>
+    <script type="text/javascript" src="js/Filter.js"></script>
+    <script type="text/javascript" src="js/Sort.js"></script>   
+    <script type="text/javascript" src="js/GetSomeRest.js"></script>
     
-
+    
 </body>
 </html>
