@@ -1,4 +1,9 @@
 
+var btResetRegion = document.getElementById("resetRegion")
+var btResetLanguage = document.getElementById("resetLanguage")
+var btResetCountryName = document.getElementById("resetCountryName")
+
+
 var select = document.getElementById("country")
 var Form = document.getElementById("Form")
 var regionSelection = document.getElementById("RegionSelection")
@@ -10,7 +15,9 @@ var moreInfosPlaceHolder = document.getElementById("moreInfosPlaceHolder")
 var regions = {}
 var languages = {}
 
+
 function load(){
+    fill_db()
     btPrecedent.disabled = "true"
     dataToDisplay = Object.values(Country.all_countries)
     addButtons = true
@@ -18,7 +25,7 @@ function load(){
     buildForms()
 }
 
-
+//function to collect, arrange and display more information about a country identified by the id parameter
 function displayMoreInfos(id){
     console.log("more Infos affiché")
     moreInfos.innerHTML=""
@@ -47,9 +54,10 @@ function displayMoreInfos(id){
     document.getElementsByTagName("main")[0].style.filter = "blur(5px)"
 }
 
+
+//ddynamicaly generates forms to fill filter options
 function buildForms(){
     
-
     for (let country of Object.values(Country.all_countries)){
         
         if (!Object.keys(regions).includes(country.region)){
@@ -85,17 +93,19 @@ function buildForms(){
     }
 }
 
-
+//filter data based on three paramaters: languages, region and country name
 Form.addEventListener("submit", (e)=>{
     e.preventDefault()
     var regionToDisplay = []
     var languageToDisplay = []
     var countryToDisplay = []
-    var globalArray = []
+    var globalArray = [] //Array containing data corresponding to the filters
     var countryNameInputPresent = false;
 
     (countryNameInput.value == "")?countryNameInputPresent=false : countryNameInputPresent=true;
 
+
+    //collects region data corresponding to the filters
     if(regionSelection.selectedOptions.length != 0 && regionSelection.selectedOptions[0].value != ""){
 
         for(var option of regionSelection.selectedOptions){
@@ -114,6 +124,8 @@ Form.addEventListener("submit", (e)=>{
 
     globalArray.push(regionToDisplay)
 
+
+    //collects languages data corresponding to the filters
     if(languageSelection.selectedOptions.length != 0 && languageSelection.selectedOptions[0].value != ""){
         for(var option of languageSelection.selectedOptions){
             for(var element of Object.values(languages[option.value])){
@@ -134,6 +146,7 @@ Form.addEventListener("submit", (e)=>{
     globalArray.push(languageToDisplay)
 
 
+    //collects country name data corresponding to the filters
     if(countryNameInputPresent){
         for (var country of Object.values(Country.all_countries)){
             if (country.name.includes(countryNameInput.value)){
@@ -144,6 +157,9 @@ Form.addEventListener("submit", (e)=>{
 
     }
 
+//the following loops are here to get the intersection of all the arrays containing respecting only one of the filters. 
+
+    //Sorts the arrays based on the arrays length to check every elements of the larger array 
     for(var i = 0; i < globalArray.length; i++){
         for(var j = 0; j < ( globalArray.length - i -1 ); j++){
           if(globalArray[j].length < globalArray[j+1].length){
@@ -154,6 +170,7 @@ Form.addEventListener("submit", (e)=>{
         }
     }
 
+    //If an element of the larger array is in the others smaller arrays, then the element correspond to all the filters and will be displayed
     dataToDisplay = []
     for(var element of globalArray[0]){
         var include = true
@@ -167,6 +184,19 @@ Form.addEventListener("submit", (e)=>{
 
 
     displayData()
+
    
     
+})
+
+btResetRegion.addEventListener("click", ()=>{
+    regionSelection.value="";
+})
+
+btResetLanguage.addEventListener("click", ()=>{
+    languageSelection.value="";
+})
+
+btResetCountryName.addEventListener("click", ()=>{
+    countryNameInput.value="";
 })

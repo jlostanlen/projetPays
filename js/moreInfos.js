@@ -1,15 +1,17 @@
-fill_db()
 
 var btCloseInfos = document.getElementById("closeInfos")
 var moreInfos = document.getElementById("moreInfos")
 var moreInfosPlaceHolder = document.getElementById("moreInfosPlaceHolder")
 
+
 function load(){
+    fill_db()
     btPrecedent.disabled = "true"
     dataToDisplay = Object.values(Country.all_countries)
     addButtons = true
     displayData()    
 }
+
 
 function displayMoreInfos(id){
     console.log("more Infos affiché")
@@ -36,7 +38,7 @@ function displayMoreInfos(id){
         
     }
     moreInfos.appendChild(table)
-    moreInfosPlaceHolder.style.display="block";
+    moreInfosPlaceHolder.style.display="flex";
     document.getElementsByTagName("main")[0].style.filter = "blur(5px)"
 }
 
@@ -59,5 +61,4 @@ function biggerFlag(source){
     moreInfos.appendChild(flag)
     document.getElementsByTagName("main")[0].style.filter = "blur(5px)"
     moreInfosPlaceHolder.style.display="block"
-
 }

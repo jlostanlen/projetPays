@@ -180,12 +180,14 @@ function moreTopLevelDomains(){
 
 function sortingDecreasingDensity(){
     var sortedCountries = []
-  
+    var unknownDensity = []
+    sortedCountries.push(Object.values(Country.all_countries)[0])
+
     for (var country of Object.values(Country.all_countries)){
-        if(sortedCountries.length == 0){
-            sortedCountries.push(Object.values(Country.all_countries)[0])
+        if (country.getPopDensity() ==  "Unknown"){
+            unknownDensity.push(country)
         }else{
-            var inserted = false
+             var inserted = false
             var loop = 0
             while(loop < sortedCountries.length && !inserted){
                 if (country.getPopDensity() >= sortedCountries[loop].getPopDensity()){
@@ -195,13 +197,20 @@ function sortingDecreasingDensity(){
                 loop ++
             }
         }
+ 
     }
+
+    sortedCountries = sortedCountries.concat(unknownDensity)
 
     var string = ""
     for (var country in sortedCountries){
         string = string.concat(sortedCountries[country].name, " ("+ sortedCountries[country].getPopDensity()+"), ")
     }
     console.log(string)
+
+    for (country of sortedCountries){
+        console.log(country.getPopDensity())
+    }
     
     return sortedCountries
 }
@@ -250,7 +259,7 @@ function complement(){
 //console.log(moreLanguages())
 //console.log(withCommonLanguages())
 //console.log(withoutCommonCurrency())
-//console.log(sortingDecreasingDensity())
+console.log(sortingDecreasingDensity())
 //console.log(moreTopLevelDomains())
 //console.log(veryLongTrip("FRA"))
 //complement()

@@ -2,7 +2,7 @@ fill_db()
 var countries = document.getElementById("countries")
 
 
-// Iterate in each country
+// Iterate on every country
 for (var country of Object.values(Country.all_countries)){
     var list_countries = document.createElement("article")
     list_countries.setAttribute("class", "list_countries")
@@ -42,7 +42,8 @@ for (var country of Object.values(Country.all_countries)){
     datas.appendChild(countryPop)
     // AREA
     var CountryArea = document.createElement("li")
-    CountryArea.textContent = country.area
+    var textArea = "Area:        "
+    CountryArea.textContent = textArea.concat(country.area)
     datas.appendChild(CountryArea)
     // DENSITY
     var countryDensity = document.createElement("li")
@@ -56,6 +57,6 @@ for (var country of Object.values(Country.all_countries)){
     list_countries.appendChild(datas)
     
 
-    // Add lines to tab
+    // Add rows to the table that will be displayed
     countries.appendChild(list_countries) 
 }

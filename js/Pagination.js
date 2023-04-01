@@ -1,4 +1,4 @@
-fill_db()
+
 var page = 1
 const TO_DISPLAY = 25
 var countriesDOM = document.getElementById("countries")
@@ -7,7 +7,9 @@ var btPrecedent = document.getElementById("precedent")
 var dataToDisplay = []
 var addButtons = false
 
+
 function load(){
+    fill_db()
     dataToDisplay = Object.values(Country.all_countries)
     btPrecedent.disabled = "true"
     displayData()
@@ -54,30 +56,60 @@ function displayData(){
     
         list_countries.appendChild(div1)
     
-        var datas = document.createElement("ul")
+        var table = document.createElement("table")
+        var tbody = document.createElement("tbody")
     
         // POPULATION
-        var countryPop = document.createElement("li")
+        var countryPopRow = document.createElement("tr")
+        var countryPopHead = document.createElement("th")
+        countryPopHead.textContent = "Population"
+        countryPopRow.append(countryPopHead)
+
+        var countryPop = document.createElement("td")
         countryPop.textContent = dataToDisplay[loop].population
-        datas.appendChild(countryPop)
+        countryPopRow.appendChild(countryPop)
+        tbody.appendChild(countryPopRow)
+
         // AREA
-        var CountryArea = document.createElement("li")
-        CountryArea.textContent = dataToDisplay[loop].area
-        datas.appendChild(CountryArea)
+        var countryAreaRow = document.createElement("tr")
+        var countryAreaHead = document.createElement("th")
+        countryAreaHead.textContent = "Area"
+        countryAreaRow.append(countryAreaHead)
+
+        var area = document.createElement("td")
+        area.textContent = dataToDisplay[loop].area
+        countryAreaRow.appendChild(area)
+        tbody.appendChild(countryAreaRow)
         // DENSITY
-        var countryDensity = document.createElement("li")
-        countryDensity.textContent = dataToDisplay[loop].getPopDensity()
-        datas.appendChild(countryDensity)
+        var countryDensityRow = document.createElement("tr")
+        var countryDensityHead = document.createElement("th")
+        countryDensityHead.textContent = "Density"
+        countryDensityRow.append(countryDensityHead)
+
+        var density = document.createElement("td")
+        density.textContent = dataToDisplay[loop].getPopDensity()
+        countryDensityRow.appendChild(density)
+        tbody.appendChild(countryDensityRow)
+
+
         // REGION
-        var countryRegion = document.createElement("li")
-        countryRegion.textContent = dataToDisplay[loop].region
-        datas.appendChild(countryRegion)
+        var countryRegionRow = document.createElement("tr")
+        var countryRegionHead = document.createElement("th")
+        countryRegionHead.textContent = "Region"
+        countryRegionRow.append(countryRegionHead)
 
-        list_countries.appendChild(datas)
+        var region = document.createElement("td")
+        region.textContent = dataToDisplay[loop].region
+        countryRegionRow.appendChild(region)
+        tbody.appendChild(countryRegionRow)
 
+        table.appendChild(tbody)
+        list_countries.appendChild(table)
+
+        
         if(addButtons){
-            datas.setAttribute("id", dataToDisplay[loop].alpha3Code)
-            datas.setAttribute("onclick", "displayMoreInfos(this.id)")
+            table.setAttribute("id", dataToDisplay[loop].alpha3Code)
+            table.setAttribute("onclick", "displayMoreInfos(this.id)")
     
             var moreInfosButton = document.createElement("button");
             moreInfosButton.setAttribute("id", dataToDisplay[loop].alpha3Code);
